@@ -20,13 +20,7 @@ from Linha import (pesquisar_linha_metropolitana,
  
  )
 
-from Trajeto import (tratar_input,
-criar_trajeto,
-excluir_trajeto,
-pesquisar_trajeto,
-atualizar_trajeto
-
-)
+import Trajeto
 
 from Paineis_Gerais import busca_Painel_metropolitano, busca_Linhas_Atuais
 
@@ -295,24 +289,6 @@ def criar_linha_view():
 
     return render_template('tela4_linha.html')
 
-@app.route('/criar', methods=['POST'])
-def criar():
-    linha_id = request.form.get('linha_id')
-    origem_id = request.form.get('origem_id')
-    destino_id = request.form.get('destino_id')
-
-    try:
-        criar_trajeto(linha_id, origem_id, destino_id)
-        mensagem = 'Trajeto criado com sucesso!'
-        tipo_mensagem = 'sucesso'
-    except Exception as e:
-        mensagem = f'Erro ao criar trajeto: {e}'
-        tipo_mensagem = 'erro'
-    
-    return redirect(url_for('tela_trajeto', mensagem=mensagem, tipo_mensagem=tipo_mensagem))
-
-
-
 ########################################## PAINEIS ######################################################### 
 ############################################################################################################
 
@@ -328,28 +304,24 @@ def painel_metropolitano():
 @app.route('/tela_trajeto')
 def tela_trajeto():
     return render_template('tela_trajeto.html')
-'''
+
 @app.route('/criar', methods=['POST'])
 def criar():
     linha_id = request.form.get('linha_id')
     origem_id = request.form.get('origem_id')
     destino_id = request.form.get('destino_id')
-    criar_trajeto(linha_id, origem_id, destino_id)
+    Trajeto.criar_trajeto(linha_id, origem_id, destino_id)
     return redirect(url_for('tela_trajeto'))
-'''
-
-
-
 
 @app.route('/pesquisar', methods=['POST'])
 def pesquisar():
     linha_id = request.form.get('linha_id')
-    resultados = pesquisar_trajeto(linha_id)
+    resultados = Trajeto.pesquisar_trajeto(linha_id)
     return render_template('tela_trajeto.html', resultados=resultados)
 
 @app.route('/excluir/<linha_id>')
 def excluir(linha_id):
-    excluir_trajeto(linha_id)
+    Trajeto.excluir_trajeto(linha_id)
     return redirect(url_for('tela_trajeto'))
 
 @app.route('/atualizar', methods=['POST'])
@@ -357,7 +329,7 @@ def atualizar():
     linha_id = request.form.get('linha_id')
     origem_id = request.form.get('origem_id')
     destino_id = request.form.get('destino_id')
-    atualizar_trajeto(linha_id, origem_id, destino_id)
+    Trajeto.atualizar_trajeto(linha_id, origem_id, destino_id)
     return redirect(url_for('tela_trajeto'))
 
 

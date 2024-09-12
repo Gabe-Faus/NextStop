@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', filename='fotos/icon.png') }}" rel="icon">
+    <title>Painel Metropolitano</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #ffffff;
+            padding: 20px;
+            border-bottom: 3px solid #002f6c;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            color: #002f6c;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #002f6c;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        td {
+            white-space: nowrap;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-bottom: 3px solid #002f6c;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-bottom: 3px solid #002f6c;
+        }
+
+        .topnav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+        }
+
+        .topnav-img {
+            height: 80px;
+        }
+
+        .topnav-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #b51616;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .topnav-button:hover {
+            background-color: #930000;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #b51616;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .button:hover {
+            background-color: #930000;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border: solid #930000;
+            border-radius: 15px;
+            margin-top: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        form {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 5px 0;
+            color: #002f6c;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #002f6c;
+            border-radius: 15px;
+            width: calc(100% - 22px);
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #b51616;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: block;
+            margin: 10px auto;
+        }
+
+        button:hover {
+            background-color: #930000;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 2px solid black;
+        }
+
+        td {
+            padding: 8px;
+            text-align: center;
+           
+        }
+        th{
+            padding: 8px;
+            text-align: center;
+            color: #ddd;
+        }
+
+        th {
+            background-color: #aa2c2c;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function atualizarPagina() {
+                setTimeout(function() {
+                    location.reload();
+                }, 30000); // Atualiza a cada 30 segundos
+            }
+            atualizarPagina();
+        });
+    </script>
+</head>
+<body>
+    <body>
+        <header>
+            <div class="topnav">
+                <img class="topnav-img" src="{{ url_for('static', filename='fotos/logo_nextstop_ADM.png') }}" alt="Logo Next Stop Administrador">
+                <h1>Painel Metropolitano</h1>
+                <div class="button-container">
+                    <button class="button" onclick="window.location.href='/tela3_inicio_adm'">VOLTAR</button>
+                </div>
+            </div>
+        </header>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>MOTORISTA</th>
+                    <th>LINHA</th>
+                    <th>MODELO</th>
+                    <th>EMPRESA</th>
+                    <th>HORÁRIO</th>
+                    <th>DIA</th>
+                    <th>CIDADE</th>
+                    <th>ORIGEM</th>
+                    <th>DESTINO</th>
+                    <th>PARADA 1</th>
+                    <th>PARADA 2</th>
+                    <th>PARADA 3</th>
+                    <th>PARADA 4</th>
+                    <th>PARADA 5</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if resultados %}
+                    {% for linha in resultados[0] %}
+                        <tr>
+                            <td>{{ linha[0] }}</td>
+                            <td>{{ linha[2] }}</td>
+                            <td>{{ linha[3] }}</td>
+                            <td>{{ linha[4] }}</td>
+                            <td>{{ linha[5] }}</td>
+                            <td>{{ linha[6] }}</td>
+                            <td>{{ linha[7] }}</td>
+                            <td>{{ linha[8] }}</td>
+                            <td>{{ linha[9] }}</td>
+                            <td>{{ linha[10] }}</td>
+                            <td>{{ linha[11] }}</td>
+                            <td>{{ linha[12] }}</td>
+                            <td>{{ linha[13] }}</td>
+                            <td>{{ linha[14] }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="13">Nenhum dado encontrado</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

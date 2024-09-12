@@ -1,0 +1,43 @@
+<!--Documento diz respeito à tela do Adm de edição da motorista -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXT STOP - ADMINISTRADOR</title> 
+    <link href="../fotos/so_onibus (2).png" rel="icon">
+</head>
+<body>
+    <header>
+        <!-- Adiciona a barra de navegação do cabeçalho -->
+        <div class="topnav">
+            <!-- Logo do sistema -->
+            <img class="topnav-img" src="../fotos/logo_nextstop_ADM.png" alt="Logo Next Stop">
+            <a href="tela3_inicio_adm.html">LINHA</a>
+            <a href="tela_EditarMotorista.html">MOTORISTA</a>
+            <a href="tela_EditarTrajeto.html">TRAJETO</a>
+            <a href="tela_VisaoGeral.html">VISÃO GERAL</a>
+            <!-- Botão para acessar a área do administrador -->
+            <button class="topnav-button" onclick="window.location.href='tela1_usuario.html'">SAIR</button>
+        </div>
+    </header>
+    <!-- Formulário para pesquisa de linhas -->
+    <form id="form_motorista" method="POST">
+        <div class="container">
+            <legend id="pesquisaLinha">
+                <!-- Título do formulário -->
+                <h2><b>PESQUISAR MOTORISTA</b></h2>
+            </legend>
+        </div>
+
+        <!-- Input para o usuário inserir o número da linha desejada -->
+        <input type="text" min="1" name="Pesquise a linha" id="pesquisa_linha" class="pesquisa_linha" placeholder="Insira o nome do motorista" required>
+
+        <!-- Botão para pesquisar a linha -->
+        <button type="button" id="botao_pesquisa" class="botao_pesquisa" onclick="">Pesquisar</button>
+    </form>
+
+    
+</body>
+</html>

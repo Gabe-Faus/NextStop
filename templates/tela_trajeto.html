@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Trajetos</title>
+    <link href="{{ url_for('static', filename='fotos/icon.png') }}" rel="icon">
+    <style>
+        h1,h2{
+            color: #002f6c;
+            text-align: center;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-bottom: 3px solid #002f6c;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .topnav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topnav-img {
+            height: 80px;
+        }
+
+        .topnav-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #b51616;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .topnav-button:hover {
+            background-color: #930000;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .topnav-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #b51616;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #002f6c;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .button:hover {
+            background-color: #002f6c;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border: solid #930000;
+            border-radius: 15px;
+            margin-top: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        form {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 5px 0;
+            color: #002f6c;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #002f6c;
+            border-radius: 15px;
+            width: calc(100% - 22px);
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #002f6c;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: block;
+            margin: 10px auto;
+        }
+
+        button:hover {
+            background-color: #002f6c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+      
+    </style>
+</head>
+<body>
+    <header>
+        <div class="topnav">
+            <img class="topnav-img" src="{{ url_for('static', filename='fotos/logo_nextstop_ADM.png') }}" alt="Logo Next Stop Administrador">
+            
+            <div class="button-container">
+                <button class="topnav-button" onclick="window.location.href='/tela3_inicio_adm'">VOLTAR</button>
+            </div>
+        </div>
+    </header>
+    <h1>Gestão de Trajetos</h1>
+    <div class="form-container">
+        
+
+        <!-- Formulário para criar trajetos -->
+        <h2>Criar Trajeto</h2>
+        <form action="{{ url_for('criar') }}" method="post">
+            <label for="linha_id">Linha ID:</label>
+            <input type="text" name="linha_id" required>
+            <label for="origem_id">Origem ID:</label>
+            <input type="text" name="origem_id" required>
+            <label for="destino_id">Destino ID:</label>
+            <input type="text" name="destino_id" required>
+            {% if mensagem %}
+            <div class="mensagem {% if tipo_mensagem == 'erro' %}erro{% endif %}">
+                {{ mensagem }}
+            </div>
+        {% endif %}
+            <button type="submit">Criar</button>
+
+            <!--colocar mensagem-->
+        </form>
+
+        <!-- Formulário para pesquisar trajetos -->
+        <h2>Pesquisar Trajeto</h2>
+        <form action="{{ url_for('pesquisar') }}" method="post">
+            <label for="linha_id">Linha ID:</label>
+            <input type="text" name="linha_id" required>
+            <button type="submit">Pesquisar</button>
+        </form>
+
+        {% if resultados %}
+        <h2>Resultados da Pesquisa</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Linha ID</th>
+                    <th>Origem ID</th>
+                    <th>Destino ID</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for resultado in resultados %}
+                <tr>
+                    <td>{{ resultado[0] }}</td>
+                    <td>{{ resultado[1] }}</td>
+                    <td>{{ resultado[2] }}</td>
+                    <td>
+                       
+                        <form action="{{ url_for('atualizar') }}" method="post" style="display:inline;">
+                            <input type="hidden" name="linha_id" value="{{ resultado[0] }}">
+                            <input type="text" name="origem_id" value="{{ resultado[1] }}" required>
+                            <input type="text" name="destino_id" value="{{ resultado[2] }}" required>
+                            <button type="submit">Atualizar</button>
+                            <button>
+                            <a href="{{ url_for('excluir', linha_id=resultado[0]) }}" class="button">Excluir</a>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</body>
+</html>

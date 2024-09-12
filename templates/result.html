@@ -1,0 +1,148 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado da Pesquisa</title>
+    <link href="{{ url_for('static', filename='fotos/icon.png') }}" rel="icon">
+    <style>
+        #resultado_Pesquisa {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #resultado_Pesquisa {
+            font-size: 18px;
+            color: #002f6c;
+            margin: 0;
+            font-weight: 600;
+        }
+        p{
+            color: #002f6c;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 18px;
+        }
+        
+        body {
+            
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .form-container {
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border: solid #930000;
+            margin-top: 20px;
+            border-radius: 15px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;  
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #930000;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: block;
+            margin: 10px auto;
+        }
+
+        button:hover {
+            background-color: #001f3f;
+        }
+
+        .topnavv {
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #001f3f;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: block;
+            margin: 10px auto;
+        }
+
+        .topnavv:hover {
+            background-color: #001f3f;
+        }
+
+        .button-container {
+            text-align: center;      
+            margin-top: 20px;       
+        }
+
+        a {
+            display: inline-block;  
+            padding: 12px 20px;     
+            font-size: 16px;        
+            cursor: pointer;        
+            background-color: #001f3f; 
+            color: white;          
+            text-decoration: none;
+            border-radius: 15px;   
+            transition: background-color 0.3s; 
+            font-weight: bold;      
+            text-transform: uppercase; 
+            text-align: center;  
+        }
+
+        a:hover {
+            background-color: #001f3f; 
+        }
+
+        .topnav-img {
+            height: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+    <div class="container">
+        <img class="topnav-img" src="{{ url_for('static', filename='fotos/logo_nextstop_ADM.png') }}" alt="Logo Next Stop Administrador">
+        <legend id="resultado_Pesquisa">
+            <h1>Resultado da Pesquisa</h1>
+        </legend>
+    </div>
+    {% if motorista %}
+        <p><strong>Nome:</strong> {{ motorista[1] }}</p>
+        <p><strong>Telefone:</strong> {{ motorista[2] }}</p>
+        <p><strong>Foto:</strong></p>
+        <img src="{{ url_for('foto', motorista_id=motorista[0]) }}" alt="Foto do Motorista">
+        
+        <form method="GET" action="{{ url_for('edit_motorista', motorista_id=motorista[0]) }}">
+            <button type="submit">Editar Motorista</button>
+        </form>
+
+        <form method="POST" action="{{ url_for('delete_motorista', motorista_id=motorista[0]) }}">
+            <button type="submit">Excluir Motorista</button>
+        </form>
+    {% else %}
+        <p>Motorista não encontrado.</p>
+    {% endif %}
+        <button class="topnavv" onclick="window.location.href='/upload'">VOLTAR</button>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,20 @@
+<!--  http://127.0.0.1:5000/search -->
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisar Motorista</title>
+</head>
+<body>
+    <h1>Pesquisar Motorista</h1>
+    <form method="POST" action="{{ url_for('search') }}">
+        <label for="name">Nome do Motorista:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <input type="submit" value="Pesquisar">
+    </form>
+</body>
+</html>
+
+

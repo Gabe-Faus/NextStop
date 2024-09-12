@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXCLUIR LINHA - ADMINISTRADOR</title>
+    <!--Fotinha do ônibus na aba do navegador-->
+    <link href="{{ url_for('static', filename='fotos/icon.png') }}" rel="icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 10px 0;
+            border-bottom: 3px solid #002f6c;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000; 
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin-top: 80px; 
+            border: 3px solid #930000; 
+        }
+
+        .topnav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .topnav a {
+            float: left; 
+            display: block; 
+            color: #002f6c; 
+            text-align: center; 
+            padding: 14px 16px; 
+            text-decoration: none; 
+            font-family: 'Anton', sans-serif;
+            border-radius: 15px;
+        }
+
+        .topnav a:hover {
+            background-color: #f59797;
+            color: #002f6c;
+        }
+
+        .topnav-img {
+            height: 80px;
+        }
+
+        .topnav-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #b51616;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .topnav-button:hover {
+            background-color: #930000;
+        }
+
+        .topnavv {
+            padding: 10px 20px; 
+            font-size: 16px; 
+            cursor: pointer; 
+            background-color: white; 
+            color: #001f3f;
+            border: none; 
+            border-radius: 15px; 
+            transition: background-color 0.3s; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+        }
+
+        .topnavv:hover {
+            background-color: #ff6961; 
+        }
+
+        .container form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            text-align: center; 
+            color: #001f3f;
+        }
+
+        input[type="text"] {
+            width: 80%; 
+            padding: 8px;
+            font-size: 16px;
+            border: 2px solid #002f6c;
+            border-radius: 15px;
+            display: block;
+            margin: 0 auto; 
+            text-align: center;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #002f6c;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: block; 
+            margin: 0 auto;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #001f3f;
+        }
+
+        #excluirLinha {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #002f6c;
+            width: 100%;
+            text-align: center; 
+        }
+
+        #excluirLinha h2 {
+            font-size: 24px;
+            color: #002f6c;
+            margin: 0;
+            font-weight: 600;
+        }
+        #responseMessage {
+        text-align: center;
+        margin-top: 20px; 
+        color: red; 
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="topnav">
+            <img class="topnav-img" src="{{ url_for('static', filename='fotos/logo_nextstop_ADM.png') }}" alt="Logo Next Stop Administrador">
+            
+            <button class="topnavv" onclick="window.location.href='/criar_linha'">CRIAR</button>
+            <button class="topnavv" onclick="window.location.href='/excluir_linha_page'">EXCLUIR</button>
+            <button class="topnavv" onclick="window.location.href='/alterar_linha_page'">ALTERAR</button>
+            <button class="topnav-button" onclick="window.location.href='/tela3_inicio_adm'">MENU PRINCIPAL</button>
+            <button class="topnav-button" onclick="window.location.href='/criar_linha'">VOLTAR</button>
+            
+        </div>
+    </header>
+    
+    <div class="container">
+        <div id="excluirLinha">
+            <h2>EXCLUIR LINHA</h2>
+        </div>
+        <form id="deleteForm">
+            <label for="nome">Número da Linha:</label>
+            <input type="text" id="nome" name="nome" placeholder="Insira o número da linha" required>
+            <input type="submit" value="Excluir Linha">
+        </form>
+        <p id="responseMessage"></p>
+    </div>
+    <script>
+        document.getElementById('deleteForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('nome').value;
+            const responseMessage = document.getElementById('responseMessage');
+
+            try {
+                const response = await fetch('/excluir_linha', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ nome })
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    responseMessage.textContent = result.message;
+                    responseMessage.style.color = 'green';
+                } else {
+                    responseMessage.textContent = result.message;
+                    responseMessage.style.color = 'red';
+                }
+            } catch (error) {
+                responseMessage.textContent = 'Erro ao excluir linha.';
+                responseMessage.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>

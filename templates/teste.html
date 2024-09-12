@@ -1,0 +1,170 @@
+<!--Documento diz respeito à tela do Adm de edição da linha -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Define a escala da página para dispositivos móveis e diferentes tamanhos de tela -->
+    <title>NEXT STOP - ADMINISTRADOR</title>
+    <!-- Título que será exibido na aba do navegador -->   
+    <!--link rel="stylesheet" href="estilo.css"-->  
+    <link href="{{ url_for('static', filename='fotos/icon.png') }}" rel="icon">
+    <style>
+    #form_linhaAdm{
+            padding: 40px; /* Adiciona padding ao redor do formulário */
+            max-width: 600px; /* Define a largura máxima do formulário */
+            margin: 0 auto; /* Centraliza o formulário horizontalmente */
+            background-color: #ffffff; /* Define a cor de fundo do formulário como branca */
+            border-radius: 15px; /* Adiciona bordas arredondadas ao formulário */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil ao formulário */
+            border: solid #930000;
+            margin-top: 20px;
+    }
+
+    body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /*Definindo a fonte*/
+            margin: 0; /* Remove a margem padrão do navegador */
+            padding: 0; /* Remove o padding padrão do navegador */
+            background-color: #f4f4f4; /* Define um fundo cinza claro para a página */
+    }
+
+    header {
+            background-color: #ffffff; /* Define a cor de fundo do cabeçalho como branca */
+            padding: 10px 20px; /* Adiciona espaçamento interno ao cabeçalho */
+            border-bottom: 3px solid #002f6c; /* Adiciona uma borda inferior azul escura ao cabeçalho */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil ao cabeçalho */
+    }
+
+    .topnav {
+            display: flex; /* Usa Flexbox para alinhar os itens do cabeçalho */
+            justify-content: space-between; /* Alinha a logo à esquerda e o botão à direita */
+            align-items: center; /* Alinha verticalmente os itens no centro */
+    }
+
+    .topnav-img {
+            height: 80px; /* Ajusta a altura da imagem da logo */
+    }
+
+    .topnav-button {
+            padding: 10px 20px; /* Adiciona padding ao redor do texto do botão */
+            font-size: 16px; /* Define o tamanho da fonte do botão */
+            cursor: pointer; /* Altera o cursor para uma mão ao passar sobre o botão */
+            background-color: #b51616; /* Define a cor de fundo do botão como vermelho */
+            color: white; /* Define a cor do texto do botão como branca */
+            border: none; /* Remove a borda padrão do botão */
+            border-radius: 15px; /* Adiciona bordas arredondadas ao botão */
+            transition: background-color 0.3s; /* Adiciona uma transição suave para a cor de fundo do botão */
+            font-weight: bold; /* Define o texto do botão como negrito */
+            text-transform: uppercase; /* Transforma o texto do botão em maiúsculas */
+    }
+
+    .topnav-button:hover {
+            background-color: #930000; /* Altera a cor de fundo para um tom mais escuro de vermelho ao passar o mouse */
+    }
+
+    .topnavv {
+            padding: 10px 20px; /* Adiciona padding ao redor do texto do botão */
+            font-size: 16px; /* Define o tamanho da fonte do botão */
+            cursor: pointer; /* Altera o cursor para uma mão ao passar sobre o botão */
+            background-color: white; /* Define a cor de fundo do botão como vermelho */
+            color: #001f3f; /* Define a cor do texto do botão como branca */
+            border: none; /* Remove a borda padrão do botão */
+            border-radius: 15px; /* Adiciona bordas arredondadas ao botão */
+            transition: background-color 0.3s; /* Adiciona uma transição suave para a cor de fundo do botão */
+            font-weight: bold; /* Define o texto do botão como negrito */
+            text-transform: uppercase; /* Transforma o texto do botão em maiúsculas */
+    }
+
+    .topnavv:hover {
+            background-color: #ff6961; /* Altera a cor de fundo para um tom mais escuro de vermelho ao passar o mouse */
+    }
+
+    
+    input[type="number"]{
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #002f6c;
+            border-radius: 15px;
+            width: calc(100% - 24px);
+            max-width: 500px;
+            margin: 10px 0;
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+    }
+
+    #pesquisaLinha {
+            text-align: center; /* Centraliza o texto do título */
+            margin-bottom: 20px; /* Adiciona margem abaixo do título */
+    }
+
+    #pesquisaLinha h2 {
+            font-size: 24px; /* Define o tamanho da fonte do título */
+            color: #002f6c; /* Define a cor do título como azul escuro */
+            margin: 0; /* Remove a margem padrão do título */
+            font-weight: 600; /* Define o peso da fonte como semi-negrito */
+    }
+
+    .botao_pesquisa {
+            padding: 12px 20px; /* Adiciona padding ao redor do texto do botão */
+            font-size: 16px; /* Define o tamanho da fonte do botão */
+            cursor: pointer; /* Altera o cursor para uma mão ao passar sobre o botão */
+            background-color: #002f6c; /* Define a cor de fundo do botão como azul escuro */
+            color: white; /* Define a cor do texto do botão como branca */
+            border: none; /* Remove a borda padrão do botão */
+            border-radius: 15px; /* Adiciona bordas arredondadas ao botão */
+            transition: background-color 0.3s; /* Adiciona uma transição suave para a cor de fundo do botão */
+            font-weight: bold; /* Define o texto do botão como negrito */
+            text-transform: uppercase; /* Transforma o texto do botão em maiúsculas */
+            display: block;
+            margin: 10px auto;
+
+    }
+
+    .botao_pesquisa:hover {
+            background-color: #001f3f; /* Altera a cor de fundo para um tom mais escuro de azul ao passar o mouse */
+    }
+
+    .bem_vindo{
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #002f6c;
+            font-weight: 600;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Anton', sans-serif;
+        }
+
+    </style>
+
+</head>
+<body>
+    <header>
+        <!-- Adiciona a barra de navegação do cabeçalho -->
+        <div class="topnav">
+            <!-- Logo do sistema -->
+            <img class="topnav-img" src="{{ url_for('static', filename='fotos/logo_nextstop_ADM.png') }}" alt="Logo Next Stop Administrador">
+            <button class="topnavv" onclick="window.location.href='/criar_linha'">LINHA</button>
+            <button class="topnavv" onclick="window.location.href='/upload'">MOTORISTA</button>
+            <button class="topnavv" onclick="window.location.href='/painel_metropolitano'">VISÃO GERAL</button>
+            <!-- Botão para acessar a área do administrador -->
+            <button class="topnav-button" onclick="window.location.href='/tela_Loga_Admin'">SAIR</button>
+        </div>
+    </header>
+    <p class="bem_vindo">SEJA BEM VINDO(A), ADMINISTRADOR(A)!</p>  
+    
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

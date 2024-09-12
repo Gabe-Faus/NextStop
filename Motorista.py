@@ -1,11 +1,9 @@
-# Motorista.py
-
-# Nesta função motorista funciona perfeitamente criar e pesquisar motoristas as outras funções ainda estão sendo implementadas
-from psycopg2 import sql
 import psycopg2
+from psycopg2 import sql
 from conectar_banco import ConectarBanco
+from io import BytesIO
 
-#Função Criar Motorista
+
 def criar_motorista(nome, telefone, foto, linha_id, empresa_id):
     conn = ConectarBanco()
     try:
@@ -14,7 +12,7 @@ def criar_motorista(nome, telefone, foto, linha_id, empresa_id):
                 INSERT INTO Motorista (Nome, Telefone, Foto, Linha_id, Empresa_id)
                 VALUES (%s, %s, %s, %s, %s)
             """)
-            cur.execute(query, (nome, telefone, foto, linha_id, empresa_id))
+            cur.execute(query, (nome, telefone, psycopg2.Binary(foto), linha_id, empresa_id))
             conn.commit()
             print("Motorista criado com sucesso!")
     except Exception as e:
@@ -22,115 +20,89 @@ def criar_motorista(nome, telefone, foto, linha_id, empresa_id):
     finally:
         conn.close()
 
-#Função Obter foto 
-def obter_foto():
-    caminho_foto = input("Caminho para a foto: ")
-    try:
-        with open(caminho_foto, 'rb') as f:
-            return f.read()
-    except FileNotFoundError:
-        print("Arquivo de foto não encontrado.")
-        return None
-    
 
 
-#Função Pesquisar Motorista
-def pesquisar_motorista(nome):
+def buscar_motorista_por_nome(nome):
     conn = ConectarBanco()
     try:
         with conn.cursor() as cur:
-            # Comparação exata e sensível ao caso
             query = sql.SQL("""
-                SELECT * FROM Motorista
-                WHERE Nome = %s AND LENGTH(Nome) = LENGTH(%s)
+                SELECT Motorista_id, Nome, Telefone FROM Motorista WHERE Nome = %s
             """)
-            cur.execute(query, (nome, nome))
-            resultados = cur.fetchall()
-            if resultados:
-                for resultado in resultados:
-                    print(f"ID: {resultado[0]}")
-                    print(f"Nome: {resultado[1]}")
-                    print(f"Telefone: {resultado[2]}")
-                    print(f"Foto: {resultado[3]}")  # Supondo que o campo Foto é em formato BYTEA
-                    print(f"Linha ID: {resultado[4]}")
-                    print(f"Empresa ID: {resultado[5]}")
-                    print("-" * 40)
-            else:
-                print("Nenhum motorista encontrado com esse nome.")
+            cur.execute(query, (nome,))
+            return cur.fetchone()
     except Exception as e:
         print(f"Erro ao pesquisar motorista: {e}")
+        return None
     finally:
         conn.close()
 
-
-# Função Excluir Motorista pelo Nome
-def excluir_motorista(nome):
+def buscar_foto_motorista(motorista_id):
     conn = ConectarBanco()
     try:
         with conn.cursor() as cur:
             query = sql.SQL("""
-                DELETE FROM Motorista
-                WHERE Nome = %s
+                SELECT Foto FROM Motorista WHERE Motorista_id = %s
             """)
-            cur.execute(query, (nome,))
-            conn.commit()
-            if cur.rowcount > 0:
-                print(f"Motorista com o nome '{nome}' excluído com sucesso!")
+            cur.execute(query, (motorista_id,))
+            return cur.fetchone()
+    except Exception as e:
+        print(f"Erro ao recuperar foto: {e}")
+        return None
+    finally:
+        conn.close()
+
+################################TESTE TESTE TESTE ################################################
+def editar_motorista(motorista_id, nome, telefone, linha_id, empresa_id, foto=None):
+    conn = ConectarBanco()
+    try:
+        with conn.cursor() as cur:
+            if foto:
+                query = sql.SQL("""
+                    UPDATE Motorista
+                    SET Nome = %s, Telefone = %s, Linha_id = %s, Empresa_id = %s, Foto = %s
+                    WHERE Motorista_id = %s
+                """)
+                cur.execute(query, (nome, telefone, linha_id, empresa_id, foto, motorista_id))
             else:
-                print(f"Nenhum motorista encontrado com o nome '{nome}'.")
+                query = sql.SQL("""
+                    UPDATE Motorista
+                    SET Nome = %s, Telefone = %s, Linha_id = %s, Empresa_id = %s
+                    WHERE Motorista_id = %s
+                """)
+                cur.execute(query, (nome, telefone, linha_id, empresa_id, motorista_id))
+            
+            conn.commit()
+    except Exception as e:
+        print(f"Erro ao editar motorista: {e}")
+    finally:
+        conn.close()
+
+###################################################################################################
+
+def excluir_motorista(motorista_id):
+    conn = ConectarBanco()
+    try:
+        with conn.cursor() as cur:
+            query = sql.SQL("DELETE FROM Motorista WHERE Motorista_id = %s")
+            cur.execute(query, (motorista_id,))
+            conn.commit()
     except Exception as e:
         print(f"Erro ao excluir motorista: {e}")
     finally:
         conn.close()
 
-
-#Função Atualizar Motorista 
-def alterar_motorista(id_motorista, nome=None, telefone=None, foto=None, linha_id=None, empresa_id=None):
+def buscar_dados_motorista(motorista_id):
     conn = ConectarBanco()
     try:
         with conn.cursor() as cur:
-            # Cria uma lista de colunas que serão atualizadas
-            campos_atualizacao = []
-            valores = []
-
-            if nome is not None:
-                campos_atualizacao.append("Nome = %s")
-                valores.append(nome)
-            if telefone is not None:
-                campos_atualizacao.append("Telefone = %s")
-                valores.append(telefone)
-            if foto is not None:
-                campos_atualizacao.append("Foto = %s")
-                valores.append(foto)
-            if linha_id is not None:
-                campos_atualizacao.append("Linha_id = %s")
-                valores.append(linha_id)
-            if empresa_id is not None:
-                campos_atualizacao.append("Empresa_id = %s")
-                valores.append(empresa_id)
-
-            if not campos_atualizacao:
-                print("Nenhum dado foi fornecido para atualização.")
-                return
-
-            # Concatena os campos de atualização
             query = sql.SQL("""
-                UPDATE Motorista
-                SET {}
-                WHERE id = %s
-            """).format(sql.SQL(', ').join(sql.SQL(campo) for campo in campos_atualizacao))
-
-            valores.append(id_motorista)
-            cur.execute(query, tuple(valores))
-            conn.commit()
-            print("Motorista atualizado com sucesso!")
+                SELECT Nome, Telefone, Linha_id, Empresa_id FROM Motorista WHERE Motorista_id = %s
+            """)
+            cur.execute(query, (motorista_id,))
+            return cur.fetchone()
     except Exception as e:
-        print(f"Erro ao atualizar motorista: {e}")
+        print(f"Erro ao buscar dados do motorista: {e}")
+        return None
     finally:
         conn.close()
-
-
-
-
-    
-

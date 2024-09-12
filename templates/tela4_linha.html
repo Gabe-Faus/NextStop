@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Linha</title>
+    <!--Fotinha do ônibus na aba do navegador-->
+    <link href="{{ url_for('static', filename='fotos/icon.png') }}" rel="icon">
+    <style>
+        .topnav a {
+            float: left; 
+            display: block; 
+            color: #002f6c; 
+            text-align: center; 
+            padding: 14px 16px; 
+            text-decoration: none; 
+            font-family: 'Anton', sans-serif;
+            border-radius: 15px;
+        }
+
+
+        .topnav a:hover {
+            background-color: #f59797;
+            color: #002f6c;
+    
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-bottom: 3px solid #002f6c;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .topnav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+        }
+
+        .topnav-img {
+            height: 80px;
+        }
+
+        .topnav-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #b51616;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .topnav-button:hover {
+            background-color: #930000;
+        }
+
+        .form-container {
+        
+    border: solid #930000;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 600px; /* Reduza a largura máxima do formulário */
+    display: flex;
+    flex-direction: column; /* Altera para coluna */
+    align-items: center; /* Centraliza todo o conteúdo */
+    border-radius: 15px;
+    background-color: white;
+}
+
+
+        .form-container form {
+            width: 48%; 
+            box-sizing: border-box; 
+            align-items: center;
+        }
+
+        #cadastrarLinha {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #002f6c;
+        }
+
+        #cadastrarLinha h2 {
+            font-size: 24px;
+            color: #002f6c;
+            margin: 0;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        input[type="submit"] {
+        padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #002f6c;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    transition: background-color 0.3s;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: block; /* Garante que o botão se comporte como um bloco */
+    margin: 0 auto; /* Centraliza o botão horizontalmente */
+}
+
+        input[type="submit"]:hover {
+            background-color: #001f3f;
+        }
+
+        label {
+            text-align: center;
+            color: #002f6c;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        .topnavv {
+            padding: 10px 20px; /* Adiciona padding ao redor do texto do botão */
+            font-size: 16px; /* Define o tamanho da fonte do botão */
+            cursor: pointer; /* Altera o cursor para uma mão ao passar sobre o botão */
+            background-color: white; /* Define a cor de fundo do botão como vermelho */
+            color: #001f3f; /* Define a cor do texto do botão como branca */
+            border: none; /* Remove a borda padrão do botão */
+            border-radius: 15px; /* Adiciona bordas arredondadas ao botão */
+            transition: background-color 0.3s; /* Adiciona uma transição suave para a cor de fundo do botão */
+            font-weight: bold; /* Define o texto do botão como negrito */
+            text-transform: uppercase; /* Transforma o texto do botão em maiúsculas */
+    }
+
+    .topnavv:hover {
+            background-color: #ff6961; /* Altera a cor de fundo para um tom mais escuro de vermelho ao passar o mouse */
+    }
+
+    /* Centraliza o formulário e adiciona estilo à borda */
+.form-container {
+    border: solid #930000;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 800px; /* Largura máxima do formulário */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Estiliza os grupos de campos do formulário */
+.form-group {
+    flex: 1 1 45%; /* Ajusta para duas colunas */
+    margin-bottom: 10px;
+}
+
+
+/* Estiliza os campos e rótulos */
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"] {
+    align-self: auto;
+    width: 90%; /* Ocupa toda a largura do container */
+    padding: 8px;
+    font-size: 16px;
+    border: 2px solid #002f6c;
+    border-radius: 15px;
+    max-width: 700px;
+    margin: 10px 0;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+         
+}
+
+    </style>
+
+</head>
+<body>
+<header>
+    <div class="topnav">
+        <img class="topnav-img" src="{{ url_for('static', filename='fotos/logo_nextstop_ADM.png') }}" alt="Logo Next Stop Administrador">
+        <button class="topnavv" onclick="window.location.href='/criar_linha'">CRIAR</button>
+        <button class="topnavv" onclick="window.location.href='/excluir_linha_page'">EXCLUIR</button>
+        <button class="topnavv" onclick="window.location.href='/alterar_linha_page'">ALTERAR</button>
+        <button class="topnav-button" onclick="window.location.href='/tela3_inicio_adm'">MENU PRINCIPAL</button>
+    </div>
+</header>
+<h2 id="cadastrarLinha">CRIAR LINHA</h2>
+    <div class="form-container">
+        
+        <form method="POST" action="{{ url_for('criar_linha_view') }}">
+            <label for="nome">Nome da Linha:</label>
+            <input type="text" id="nome" name="nome" required>
+            <br>
+            <label for="modelo">Modelo:</label>
+            <input type="text" id="modelo" name="modelo" required>
+            <br>
+            <label for="empresa_id">Nome da Empresa:</label>
+            <input type="text" id="empresa_id" name="empresa_id" required>
+            <br>
+            <label for="garagem_id">Nome da Garagem:</label>
+            <input type="text" id="garagem_id" name="garagem_id" required>
+            <br>
+            <label for="origem_id">Terminal de Origem:</label>
+            <input type="text" id="origem_id" name="origem_id" required>
+            <br>
+            <label for="destino_id">Terminal de Destino:</label>
+            <input type="text" id="destino_id" name="destino_id" required>
+            <br>
+            <label for="parada_1">Parada 1:</label>
+            <input type="text" id="parada_1" name="parada_1">
+            <br>
+            <label for="parada_2">Parada 2:</label>
+            <input type="text" id="parada_2" name="parada_2">
+            <br>
+            <label for="parada_3">Parada 3:</label>
+            <input type="text" id="parada_3" name="parada_3">
+            <br>
+            <label for="parada_4">Parada 4:</label>
+            <input type="text" id="parada_4" name="parada_4">
+            <br>
+            <label for="parada_5">Parada 5:</label>
+            <input type="text" id="parada_5" name="parada_5">
+            <br>
+            <label for="horario_1">Horário 1:</label>
+            <input type="text" id="horario_1" name="horario_1">
+            <br>
+            <label for="horario_2">Horário 2:</label>
+            <input type="text" id="horario_2" name="horario_2">
+            <br>
+            <label for="horario_3">Horário 3:</label>
+            <input type="text" id="horario_3" name="horario_3">
+            <br>
+            <label for="horario_4">Horário 4:</label>
+            <input type="text" id="horario_4" name="horario_4">
+            <br>
+            <label for="horario_5">Horário 5:</label>
+            <input type="text" id="horario_5" name="horario_5">
+            <br>                                        
+            {% if mensagem %}
+            <div class="mensagem {% if tipo_mensagem == 'erro' %}erro{% endif %}">
+                {{ mensagem }}
+            </div>
+            {% endif %}
+            <br>
+
+            <input type="submit" value="Criar Linha">
+          
+                   
+
+
+             
+        </form>
+
+</body>
+</html>

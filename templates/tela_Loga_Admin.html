@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN ADMINISTRADOR</title>
+    <link href="{{ url_for('static', filename='fotos/icon.png') }}" rel="icon">
+    
+    <style>
+        #area_admTitle {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #area_admTitle h2 {
+            font-size: 24px;
+            color: #002f6c;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        #form_adm {
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 50vh;
+            border: solid #930000;
+            margin-top: 30px;
+        }
+
+        #login_adm h3 {
+            font-size: 20px;
+            color: #002f6c;
+            margin: 0;
+            font-weight: 600;
+            font-family: 'Anton', sans-serif;
+        }
+
+        .topnav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .topnav-img {
+            height: 80px;
+        }
+
+        .topnav-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #b51616;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .topnav-button:hover {
+            background-color: #930000;
+        }
+
+        header {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-bottom: 3px solid #002f6c;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .usuario_adm, .senha_adm {
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #930000;
+            border-radius: 15px;
+            width: calc(100% - 24px);
+            max-width: 500px;
+            margin: 10px 0;
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .botao_login {
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #002f6c;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: block;
+            margin: 10px auto;
+        }
+
+        .botao_login:hover {
+            background-color: #002f6c;
+        }
+
+        .topnav-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #002f6c;
+            font-weight: 600;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Anton', sans-serif;
+            top: 45px;
+        }
+
+        label {
+            text-align: center;
+            color: #002f6c;
+            display: block;
+            margin-bottom: 8px;
+            max-width: 500px;
+            font-weight: bold;
+            font-family: 'Anton', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="topnav">
+            <img class="topnav-img" src="{{ url_for('static', filename='fotos/logo_nextstop_ADM.png') }}" alt="Logo Next Stop">
+            <span class="topnav-title">ADMINISTRADOR, IDENTIFIQUE-SE</span>
+            <button class="topnav-button" onclick="window.location.href='/tela1_usuario'">VOLTAR</button>
+        </div>
+    </header>
+
+    <form id="form_adm" method="POST" action="/login" onsubmit="return validarFormulario()">
+        <div class="container">
+            <legend id="login_adm">
+                <h3><b>LOGIN ADMINISTRADOR</b></h3><br>
+            </legend>
+        </div>
+        <br>
+
+        <label for="usuario_adm">NOME</label>
+        <input type="text" name="usuario" id="usuario_adm" class="usuario_adm" required><br>
+
+        <label for="senha_adm">SENHA</label>
+        <input type="password" name="senha" id="senha_adm" class="senha_adm" required>
+
+        <button type="submit" id="botao_login" class="botao_login">ENTRAR</button> <!--Criar um Link para voltar para a tela do usuário-->
+    </form>
+
+</body>
+</html>

@@ -1,30 +1,200 @@
-<!-- Teste de front Criar motorista  -->
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="utf-8">
-    <title>Upload de Motorista</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRIAR MOTORISTA</title>
+    <!--link rel="stylesheet" href="{{ url_for('static', filename='/css/estilo.css') }}"-->
+    <link href="{{ url_for('static', filename='fotos/icon.png') }}" rel="icon">
+    <style>
+        .topnav a {
+            float: left; 
+            display: block; 
+            color: #002f6c; 
+            text-align: center; 
+            padding: 14px 16px; 
+            text-decoration: none; 
+            font-family: 'Anton', sans-serif;
+            border-radius: 15px;
+        }
+
+
+        .topnav a:hover {
+            background-color: #f59797;
+            color: #002f6c;
+    
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-bottom: 3px solid #002f6c;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .topnav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topnav-img {
+            height: 80px;
+        }
+
+        .topnav-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #b51616;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .topnav-button:hover {
+            background-color: #930000;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border: solid #930000;
+            margin-top: 20px;
+            border-radius: 15px;
+            gap: 20px; 
+        }
+
+        .form-container form {
+            width: 48%; 
+            box-sizing: border-box; 
+        }
+
+        #cadastrarMotorista {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #cadastrarMotorista h2 {
+            font-size: 24px;
+            color: #002f6c;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        input[type="text"], input[type="file"] {
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #002f6c;
+            border-radius: 15px;
+            width: calc(100% - 24px);
+            max-width: 500px;
+            margin: 10px 0;
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        input[type="submit"] {
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #002f6c;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: block;
+            margin: 10px auto;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #001f3f;
+        }
+
+        label {
+            text-align: center;
+            color: #002f6c;
+            display: block;
+            margin-bottom: 8px;
+            margin-left: calc(50% - 250px);
+            max-width: 500px;
+            font-weight: bold;
+        }
+        .topnavv {
+            padding: 10px 20px; /* Adiciona padding ao redor do texto do botão */
+            font-size: 16px; /* Define o tamanho da fonte do botão */
+            cursor: pointer; /* Altera o cursor para uma mão ao passar sobre o botão */
+            background-color: white; /* Define a cor de fundo do botão como vermelho */
+            color: #001f3f; /* Define a cor do texto do botão como branca */
+            border: none; /* Remove a borda padrão do botão */
+            border-radius: 15px; /* Adiciona bordas arredondadas ao botão */
+            transition: background-color 0.3s; /* Adiciona uma transição suave para a cor de fundo do botão */
+            font-weight: bold; /* Define o texto do botão como negrito */
+            text-transform: uppercase; /* Transforma o texto do botão em maiúsculas */
+    }
+
+    .topnavv:hover {
+            background-color: #ff6961; /* Altera a cor de fundo para um tom mais escuro de vermelho ao passar o mouse */
+    }
+
+    </style>
 </head>
 <body>
-    <h1>Cadastro de Motorista</h1>
-    <form action="/" method="post" enctype="multipart/form-data">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required><br><br>
+    <header>
+        <div class="topnav">
+            <!-- Logo do sistema -->
+            <img class="topnav-img" src="{{ url_for('static', filename='fotos/logo_nextstop_ADM.png') }}" alt="Logo Next Stop Administrador">
+            
+            <button class="topnavv" onclick="window.location.href='/criar_linha'">LINHA</button>
+            <button class="topnavv" onclick="window.location.href='/upload'">MOTORISTA</button>
+            <button class="topnavv" onclick="window.location.href='/tela_trajeto'">TRAJETO</button>
+            <button class="topnav-button" onclick="window.location.href='/tela3_inicio_adm'">MENU PRINCIPAL</button>
 
-        <label for="telefone">Telefone:</label>
-        <input type="text" id="telefone" name="telefone" required><br><br>
-
-        <label for="foto">Foto:</label>
-        <input type="file" id="foto" name="foto" accept="image/*" required><br><br>
-
-        <label for="linha_id">Linha:</label>
-        <input type="text" id="linha_id" name="linha_id" required><br><br>
-
-        <label for="empresa_id">Empresa:</label>
-        <input type="text" id="empresa_id" name="empresa_id" required><br><br>
-
-        <input type="submit" value="Enviar">
-    </form>
+        </div>
+    </header>
+    <div class="form-container">
+        <form id="form_motorista" method="POST" action="{{ url_for('upload_file') }}" enctype="multipart/form-data">
+            <div class="container">
+                <legend id="cadastrarMotorista">
+                    <h2><b>CADASTRAR MOTORISTA</b></h2>
+                </legend>
+            </div>
+            <input type="text" id="name" name="name" placeholder="NOME MOTORISTA"><br><br>
+            <input type="text" id="phone" name="phone" placeholder="TELEFONE"><br><br>
+            <input type="text" id="linha_id" name="linha_id" placeholder="ID DA LINHA"><br><br>
+            <input type="text" id="empresa_id" name="empresa_id" placeholder="NOME DA EMPRESA"><br><br>
+            <label id="label_foto" for="file">Selecione uma foto:</label>
+            <input type="file" id="file" name="file" accept="image/*" required><br>
+            <input type="submit" id="Upload" value="Upload">
+        </form>
+       
+        <form id="form_motorista" method="GET" action="{{ url_for('search_motorista') }}">
+            <div class="container">
+                <legend id="cadastrarMotorista">
+                <h2><b>PESQUISAR MOTORISTA</b></h2>
+                </legend>
+            </div>
+            <input type="text" id="search_name" name="name" placeholder="NOME MOTORISTA"><br>
+            <input type="submit" id="Pesquisar" value="Pesquisar">
+        </form>
+    </div>
 </body>
 </html>

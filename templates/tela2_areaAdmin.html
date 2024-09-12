@@ -1,0 +1,48 @@
+<!--Documento diz respeito à tela de login do Adm para Área do Administrador -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <!-- Define o idioma da página para português do Brasil -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Define a escala da página para dispositivos móveis e diferentes tamanhos de tela -->
+    <title>NEXT STOP</title>
+    <!-- Título que será exibido na aba do navegador -->   
+    <link rel="stylesheet" href="estilo.css">  
+    <link href="so_onibus (2).png" rel="icon">
+</head>
+<body>
+    <header>
+        <!-- Adiciona a barra de navegação do cabeçalho -->
+        <div class="topnav">
+            <!-- Logo do sistema -->
+            <img class="topnav-img" src="logo_nextStop.png" alt="Logo Next Stop">
+            
+            <!-- Botão para voltar para a tela de pesquisa da linha -->
+            <legend id="area_admTitle"><h2> ÁREA DO ADMINISTRADOR</h2></legend>
+            <button class="topnav-button" onclick="window.location.href='tela1_usuario.html'">VOLTAR</button>
+            
+        </div>
+    </header>
+
+    <!-- Formulário para pesquisa de linhas -->
+    <form id="form_adm" method="POST">
+        <div class="container">
+            <legend id="login_adm">
+                <!-- Título do formulário -->
+                <h2><b>LOGIN</b></h2><br>
+            </legend>
+        </div>
+
+        <!-- Input para o usuário inserir o número da linha desejada -->
+
+        
+        <input type="text"  name="usuário" id="usuario_adm" class="usuario_adm" placeholder="NOME" required><br>
+        <input type="text"  name="senha" id="senha_adm" class="senha_adm" placeholder="SENHA" required>
+        <br>
+        <!-- Botão para pesquisar a linha -->
+        <button type="button" id="botao_login" class="botao_login" onclick="window.location.href='tela3_inicio_adm.html'">ENTRAR</button>
+    </form>
+  
+</body>
+</html>

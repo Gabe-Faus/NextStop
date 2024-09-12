@@ -10,7 +10,7 @@ def ConectarBanco():
         conexao = psycopg2.connect(dbname="Sistema onibus",
                                    host="localhost",
                                    user="postgres",
-                                   password="123456",
+                                   password="#Gabriel19",
                                    port="5432")
         print("Conexão estabelecida com sucesso.")
         return conexao

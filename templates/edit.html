@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Motorista</title>
+    <link href="{{ url_for('static', filename='fotos/icon.png') }}" rel="icon">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        #editar_motorista {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #editar_motorista {
+            font-size: 18px;
+            color: #002f6c;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .form-container {
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border: solid #930000;
+            margin-top: 20px;
+            border-radius: 15px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;  
+        }
+
+        .topnav-img {
+            height: 80px;
+        }
+
+        input[type="text"], input[type="file"] {
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #002f6c;
+            border-radius: 15px;
+            width: calc(100% - 24px);
+            max-width: 500px;
+            margin: 10px 0;
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        input[type="submit"] {
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #002f6c;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: block;
+            margin: 10px auto;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #001f3f;
+        }
+
+        label {
+            text-align: center;
+            color: #002f6c;
+            display: block;
+            margin-bottom: 8px;
+            margin-left: calc(50% - 250px);
+            max-width: 500px;
+            font-weight: bold;
+        }
+
+        a {
+            display: inline-block;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #930000;
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        a:hover {
+            background-color: #001f3f;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .topnavv {
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #930000;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: block;
+            margin: 10px auto;
+        }
+
+        .topnavv:hover {
+            background-color: #001f3f;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="container">
+            <img class="topnav-img" src="{{ url_for('static', filename='fotos/logo_nextstop_ADM.png') }}" alt="Logo Next Stop Administrador">
+            <legend id="editar_motorista">
+                <h1>Editar Motorista</h1>
+            </legend>
+        </div>
+    
+        <!-- Formulário para editar os dados do motorista -->
+        <!-- Adicionando enctype="multipart/form-data" para permitir o upload de arquivos -->
+        <form method="POST" action="{{ url_for('edit_motorista', motorista_id=motorista_id) }}" enctype="multipart/form-data">
+            <label for="name">Nome Motorista:</label>
+            <input type="text" id="name" name="name" value="{{ motorista[0] }}" required><br><br>
+            
+            <label for="phone">Telefone:</label>
+            <input type="text" id="phone" name="phone" value="{{ motorista[1] }}" required><br><br>
+            
+            <label for="linha_id">ID da Linha:</label>
+            <input type="text" id="linha_id" name="linha_id" value="{{ motorista[2] }}" required><br><br>
+            
+            <label for="empresa_id">Nome da Empresa:</label>
+            <input type="text" id="empresa_id" name="empresa_id" value="{{ motorista[3] }}" required><br><br>
+            
+            <!-- Campo para upload de nova foto -->
+            <label for="foto">Foto (deixe em branco para não alterar):</label>
+            <input type="file" id="foto" name="foto"><br><br>
+            
+            <!-- Botão para enviar o formulário -->
+            <input type="submit" value="Salvar">
+        </form>
+    
+        <!-- Botão para voltar à página inicial -->
+        <button class="topnavv" onclick="window.location.href='/upload'">VOLTAR</button>
+    </div>
+</body>
+</html>
